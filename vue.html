@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CDN en Vue 3</title>
+    <script src="https://unpkg.com/vue@next"></script>
+</head>
+<body>
+    <div id="app">
+        Hello world front
+        {{datos}}
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js"></script>
+    <script>
+        const {createApp} = Vue;
+        const application = createApp({
+            data(){
+                return{
+                    datos: ''
+                }
+            },
+            async mounted(){
+                let datos = await axios.get('https://heroku-brasil-block.herokuapp.com/')
+                this.datos = datos.data
+            }
+        });
+        application.mount('#app')
+    </script>
+</body>
+</html>
